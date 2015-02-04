@@ -184,7 +184,6 @@ POPT_fprintf (FILE * stream, const char * format, ...)
 	    nb = (size_t)(rc + 1);	/* precise buffer length known */
 	} else 		/* glibc 2.0 */
 	    nb += (nb < (size_t)100 ? (size_t)100 : nb);
-	ob = b;
     }
 #endif
 

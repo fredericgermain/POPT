@@ -315,7 +315,7 @@ static int handleExec(/*@special@*/ poptContext con,
        time 'round */
     if ((con->ac + 1) >= (con->nav)) {
 	con->nav += 10;
-	con->av = (poptArgv) xrealloc(con->av, sizeof(*con->av) * con->nav);
+	con->av = (poptArgv) xrealloc((void*)con->av, sizeof(*con->av) * con->nav);
     }
 
     i = con->ac++;
@@ -446,7 +446,7 @@ assert(av);	/* XXX won't happen. */
 	    av = con->os->currAlias->argv;
 	rc = poptDupArgv(ac, av, &con->os->argc, &con->os->argv);
 	if (av != NULL && av != con->os->currAlias->argv)
-	    free(av);
+	    free((void*)av);
     }
     con->os->argb = NULL;
 
@@ -540,17 +540,17 @@ assert(argv);	/* XXX can't happen */
     }
 
     if (item->argc > 1) {
-	memcpy(argv + argc, item->argv + 1, sizeof(*argv) * (item->argc - 1));
+	memcpy((char*)(argv + argc), item->argv + 1, sizeof(*argv) * (item->argc - 1));
 	argc += (item->argc - 1);
     }
 
     if (con->av != NULL && con->ac > 0) {
-	memcpy(argv + argc, con->av, sizeof(*argv) * con->ac);
+	memcpy((char*)(argv + argc), con->av, sizeof(*argv) * con->ac);
 	argc += con->ac;
     }
 
     if (con->leftovers != NULL && con->numLeftovers > 0) {
-	memcpy(argv + argc, con->leftovers, sizeof(*argv) * con->numLeftovers);
+	memcpy((char*)(argv + argc), con->leftovers, sizeof(*argv) * con->numLeftovers);
 	argc += con->numLeftovers;
     }
 
@@ -609,7 +609,7 @@ exit:
     if (argv) {
         if (argv[0])
             free((void *)argv[0]);
-        free(argv);
+        free((void*)argv);
     }
     return ec;
 }
@@ -1013,7 +1013,7 @@ int poptSaveString(const char *** argvp,
 	argc++;
 
 /*@-unqualifiedtrans -nullstate@*/	/* XXX no annotation for (*argvp) */
-    if ((*argvp = (const char**) xrealloc(*argvp, (argc + 1 + 1) * sizeof(**argvp))) != NULL) {
+    if ((*argvp = (const char**) xrealloc((void*)(*argvp), (argc + 1 + 1) * sizeof(**argvp))) != NULL) {
 	(*argvp)[argc++] = xstrdup(val);
 	(*argvp)[argc  ] = NULL;
     }
@@ -1679,7 +1679,7 @@ assert(con->os->argv);	/* XXX can't happen */
 
 	if ((con->ac + 2) >= (con->nav)) {
 	    con->nav += 10;
-	    con->av = (poptArgv) xrealloc(con->av,
+	    con->av = (poptArgv) xrealloc((void*)(con->av),
 			    sizeof(*con->av) * con->nav);
 	}
 

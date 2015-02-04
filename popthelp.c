@@ -545,8 +545,8 @@ static size_t maxArgWidth(const struct poptOption * opt,
 	        len = maxArgWidth(opt->arg, translation_domain);
 	    if (len > max) max = len;
 	} else if (!F_ISSET(opt, DOC_HIDDEN)) {
-	    len = sizeof("  ")-1;
 	    const char * argDescrip;
+	    len = sizeof("  ")-1;
 	    /* XXX --long always padded for alignment with/without "-X, ". */
 	    len += sizeof("-X, ")-1;
 	    if (opt->longName) {
@@ -934,8 +934,8 @@ assert(done->opts);	/* XXX can't happen */
 
     fprintf(fp, "\n");
     if (done->opts != NULL)
-	free(done->opts);
-    free(columns);
+	free((void*)done->opts);
+    free((void*)columns);
   }
 }
 

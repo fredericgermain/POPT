@@ -52,8 +52,9 @@ extern void poptJlu32lpair(/*@null@*/ const void *key, size_t size,
  * Typedef's for string and array of strings.
  */
 /*@-exporttype@*/
-typedef const char * poptString;
-typedef poptString * poptArgv;
+typedef char * poptString;
+typedef const char * poptConstString;
+typedef poptConstString * poptArgv;
 /*@=exporttype@*/
 
 /** \ingroup popt
