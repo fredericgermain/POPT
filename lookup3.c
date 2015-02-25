@@ -45,7 +45,7 @@
 
 /*@-redef@*/
 /*@unchecked@*/
-static const union _dbswap {
+const union _dbswap {
     const uint32_t ui;
     const unsigned char uc[4];
 } endian = { 0x11223344 };
